@@ -620,16 +620,16 @@ class ServerOptions(Options):
 
         section.user = get('user', None)
         section.umask = octal_type(get('umask', '022'))
-        section.logfile = existing_dirpath(get('logfile', 'supervisord.log', expansions=expansions))
+        section.logfile = existing_dirpath(get('logfile', 'supervisord.log'))
         section.logfile_maxbytes = byte_size(get('logfile_maxbytes', '50MB'))
         section.logfile_backups = integer(get('logfile_backups', 10))
         section.loglevel = logging_level(get('loglevel', 'info'))
-        section.pidfile = existing_dirpath(get('pidfile', 'supervisord.pid', expansions=expansions))
+        section.pidfile = existing_dirpath(get('pidfile', 'supervisord.pid'))
         section.identifier = get('identifier', 'supervisor')
         section.nodaemon = boolean(get('nodaemon', 'false'))
 
         tempdir = tempfile.gettempdir()
-        section.childlogdir = existing_directory(get('childlogdir', tempdir, expansions=expansions))
+        section.childlogdir = existing_directory(get('childlogdir', tempdir))
         section.nocleanup = boolean(get('nocleanup', 'false'))
         section.strip_ansi = boolean(get('strip_ansi', 'false'))
 
@@ -900,7 +900,7 @@ class ServerOptions(Options):
             environment = dict_of_key_value_pairs(
                 expand(environment_str, expansions, 'environment'))
 
-            directory = get(section, 'directory', expansions=expansions)
+            directory = get(section, 'directory', None)
             if directory:
                 directory = expand(directory, expansions, 'directory')
 
